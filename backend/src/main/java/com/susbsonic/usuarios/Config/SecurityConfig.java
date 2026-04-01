@@ -45,13 +45,13 @@ public class SecurityConfig {
 
                         // 2. CONTENIDO PÚBLICO (Lectura para el Home/Cartel)
                         // He añadido /api/spaces/** porque también lo tienes en el proyecto
-                        .requestMatchers(HttpMethod.GET, "/api/artists/**", "/api/tickets/**", "/api/spaces/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/artistas/**", "/api/entradas/**", "/api/espacios/**").permitAll()
 
                         // 3. GESTIÓN (Solo Admin)
                         // Esto protege la creación/borrado de artistas, tickets y espacios
-                        .requestMatchers(HttpMethod.POST, "/api/artists/**", "/api/tickets/**", "/api/spaces/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/artists/**", "/api/tickets/**", "/api/spaces/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/artists/**", "/api/tickets/**", "/api/spaces/**").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/artistas/**", "/api/entradas/**", "/api/espacios/**").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/artistas/**", "/api/entradas/**", "/api/espacios/**").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/artistas/**", "/api/entradas/**", "/api/espacios/**").hasAnyAuthority("ROLE_ADMIN")
 
                         // 4. COMPRAS Y PERFIL: Requiere Token
                         .requestMatchers("/api/purchases/**", "/api/users/**").authenticated()

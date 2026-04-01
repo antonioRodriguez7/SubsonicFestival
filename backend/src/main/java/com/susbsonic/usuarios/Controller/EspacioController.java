@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/espacios")
+@RequestMapping("/api/espacios")
 @RequiredArgsConstructor
 public class EspacioController {
 

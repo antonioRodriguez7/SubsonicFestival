@@ -1,5 +1,6 @@
 package com.susbsonic.usuarios.models.DAO;
 
+import com.susbsonic.usuarios.models.Entrada;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  * Entidad que registra la compra de entradas por parte de un usuario.
- * Conecta al Usuario (cliente) con la Entrada (Ticket) que ha comprado.
+ * Conecta al Usuario (cliente) con la Entrada que ha comprado.
  */
 @Data
 @Builder
@@ -21,15 +22,15 @@ public class TicketComprados {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Relación: Muchos "Tickets" pueden ser comprados por un "Usuario"
+    // Relación: Muchos registros de compra pueden pertenecer a un Usuario
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // Relación: La entrada específica que se está comprando
+    // Relación: La entrada (tipo de abono) que se ha comprado
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ticket_id", nullable = false)
-    private Ticket ticket;
+    @JoinColumn(name = "entrada_id", nullable = false)
+    private Entrada entrada;
 
     /**
      * Cantidad de entradas compradas en esta transacción.
