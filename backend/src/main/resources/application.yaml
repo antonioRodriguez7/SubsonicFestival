@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: subsonic-usuarios
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/subsonic_db
+    username: postgres
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+# Configuración JWT externalizada
+jwt:
+  secret: tu_llave_secreta_super_larga_para_el_festival_subsonic
+  expiration: 36000000  # 10 horas en milisegundos
+
+# Configuración login con Google
+google:
+  client:
+    id: TU_CLIENT_ID_DE_GOOGLE.apps.googleusercontent.com
