@@ -29,7 +29,7 @@ public class SecurityConfig {
                 // 1. CONFIGURACIÓN DE CORS MEJORADA
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(List.of("http://localhost:5173"));
+                    config.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:5174"));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*")); // Permitimos todos los headers para evitar el 403
                     config.setAllowCredentials(true);

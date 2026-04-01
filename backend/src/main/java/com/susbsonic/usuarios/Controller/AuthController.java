@@ -12,7 +12,7 @@ import com.susbsonic.usuarios.models.DTO.UserRegisterDTO;
 @RestController
 @RequestMapping("/api/auth")
 // Importante: Asegúrate de que el CORS esté permitido para el puerto de React
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"})
 public class AuthController {
 
     private final AuthService authService;
