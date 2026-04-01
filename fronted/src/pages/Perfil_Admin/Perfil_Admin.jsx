@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import './Perfil_Admin.css';
 import Footer from "../../components/Footer";
 import { getEspacios, getEntradas, getArtistas } from "../../services/api";
@@ -7,6 +8,7 @@ import { getEspacios, getEntradas, getArtistas } from "../../services/api";
 function Perfil_Admin() {
 
     const navigate = useNavigate();
+    const { cerrarSesion } = useAuth();
 
     const [activeSection, setActiveSection] = useState('ARTISTAS');
     const [selectedEspacio, setSelectedEspacio] = useState(null);
@@ -53,7 +55,15 @@ function Perfil_Admin() {
         });
 
         getEntradas().then(data => {
-            setEntradas(data);
+            const entradasParseadas = data.map(e => ({
+                id: e.id,
+                categoria: e.nombre || '',
+                descripcion: e.descripcion || '',
+                precio: e.precio || '',
+                caracteristica: e.etiqueta || '',
+                img: e.img || null
+            }));
+            setEntradas(entradasParseadas);
         });
 
         getArtistas().then(data => {
@@ -229,7 +239,10 @@ function Perfil_Admin() {
                 <div className="admin-sidebar-footer">
                     <button
                         className="admin-logout-btn"
-                        onClick={() => navigate('/login')}
+                        onClick={() => {
+                            cerrarSesion();
+                            navigate('/login');
+                        }}
                     >
                         Cerrar Sesión
                     </button>
@@ -776,7 +789,13 @@ function Perfil_Admin() {
                                                     {entrada.imagen ? (
                                                         <img
                                                             src={URL.createObjectURL(entrada.imagen)}
-                                                            alt={entrada.categoria}
+                                                            alt={entrada.categoria || entrada.nombre}
+                                                            className="artista-card-img"
+                                                        />
+                                                    ) : entrada.img ? (
+                                                        <img
+                                                            src={entrada.img}
+                                                            alt={entrada.categoria || entrada.nombre}
                                                             className="artista-card-img"
                                                         />
                                                     ) : (

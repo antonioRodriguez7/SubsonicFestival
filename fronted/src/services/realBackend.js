@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "http://localhost:8081/api";
 
 // ─── Helper: lanza error con mensaje si la respuesta no es ok ─────────────────
 async function fetchJSON(url, options = {}) {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import './Perfil_Proveedor.css';
 import {
     getEspaciosContratadosProveedor,
@@ -10,6 +11,7 @@ import {
 function Perfil_Proveedor() {
 
     const navigate = useNavigate();
+    const { cerrarSesion } = useAuth();
 
     const [activeSection, setActiveSection] = useState('MIS_ESPACIOS');
     const [selectedEspacio, setSelectedEspacio] = useState(null);
@@ -126,7 +128,10 @@ function Perfil_Proveedor() {
                 <div className="admin-sidebar-footer">
                     <button
                         className="admin-logout-btn"
-                        onClick={() => navigate('/login')}
+                        onClick={() => {
+                            cerrarSesion();
+                            navigate('/login');
+                        }}
                     >
                         Cerrar Sesión
                     </button>

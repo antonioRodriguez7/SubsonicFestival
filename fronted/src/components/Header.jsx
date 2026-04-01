@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Header.css";
 
 function Header() {
   const navigate = useNavigate();
+  const { usuario } = useAuth();
 
   const [openMenu, setOpenMenu] = useState(null);
   const [isVisible, setIsVisible] = useState(true);
@@ -124,13 +126,23 @@ function Header() {
 
         </nav>
 
-        <button
-          type="button"
-          className="subsonic-login-btn"
-          onClick={() => goTo("/login")}
-        >
-          Acceder / Registro
-        </button>
+        {usuario ? (
+          <button
+            type="button"
+            className="subsonic-login-btn"
+            onClick={() => goTo("/perfil")}
+          >
+            Mi Perfil
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="subsonic-login-btn"
+            onClick={() => goTo("/login")}
+          >
+            Acceder / Registro
+          </button>
+        )}
 
       </div>
     </header>

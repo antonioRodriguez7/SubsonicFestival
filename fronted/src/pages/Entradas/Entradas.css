@@ -272,3 +272,79 @@
     background-color: #1db954;
     color: #000;
 }
+
+/* --- BARRA RESUMEN COMPRA --- */
+.pedido-bar {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.pedido-resumen {
+    width: 100%;
+}
+
+.pedido-resumen-title {
+    text-align: center;
+    color: #df188a;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.pedido-resumen-lista {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #444;
+}
+
+.pedido-resumen-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.pedido-resumen-detalle {
+    color: #fff;
+    text-align: right;
+}
+
+.pedido-resumen-detalle strong {
+    color: #00e5ff;
+}
+
+.pedido-resumen-vacio {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.pedido-resumen-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    font-weight: bold;
+    color: #00e5ff;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.pedido-resumen-precio-total {
+    color: #ffcc00;
+}
