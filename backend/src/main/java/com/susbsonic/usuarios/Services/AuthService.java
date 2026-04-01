@@ -70,6 +70,12 @@ public class AuthService {
                 .token(token)
                 .role(savedUser.getRole().name())
                 .message("Usuario registrado con éxito")
+                .id(savedUser.getId())
+                .name(savedUser.getName())
+                .surname(savedUser.getSurname())
+                .username(savedUser.getUsername())
+                .email(savedUser.getEmail())
+                .bio(savedUser.getBio())
                 .build();
     }
 
@@ -88,6 +94,12 @@ public class AuthService {
                 .token(token)
                 .role(user.getRole().name())
                 .message("Login exitoso")
+                .id(user.getId())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .bio(user.getBio())
                 .build();
     }
 
@@ -131,6 +143,12 @@ public class AuthService {
                     .token(token)
                     .role(usuarioSistema.getRole().name())
                     .message("Login con Google exitoso")
+                    .id(usuarioSistema.getId())
+                    .name(usuarioSistema.getName())
+                    .surname(usuarioSistema.getSurname())
+                    .username(usuarioSistema.getUsername())
+                    .email(usuarioSistema.getEmail())
+                    .bio(usuarioSistema.getBio())
                     .build();
 
         } catch (Exception e) {

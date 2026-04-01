@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Perfil_Admin.css';
 import Footer from "../../components/Footer";
-import { getEspacios, getEntradas } from "../../services/api";
+import { getEspacios, getEntradas, getArtistas } from "../../services/api";
 
 function Perfil_Admin() {
 
@@ -55,6 +55,20 @@ function Perfil_Admin() {
         getEntradas().then(data => {
             setEntradas(data);
         });
+
+        getArtistas().then(data => {
+            // Mapeamos los campos que usa este componente en concreto
+            const artistasParseados = data.map(a => ({
+                id: a.id,
+                nombre: a.nombre,
+                // Si tienes en la BD solo 'dia' (ej 'Viernes 23 Septiembre'), podrías intentar parsearlo
+                // o simplemente usar esos campos en tu interfaz
+                spotifyUrl: a.spoty || a.spotifyUrl || '',
+                // Acomodamos la imagen para que si viene un string del backend, tu grid funcione de manera "amigable" 
+                imagenBD: a.img || null
+            }));
+            setArtistas(artistasParseados);
+        }).catch(err => console.error(err));
 
     }, []);
 
@@ -369,6 +383,12 @@ function Perfil_Admin() {
                                                         {artista.imagen ? (
                                                             <img
                                                                 src={URL.createObjectURL(artista.imagen)}
+                                                                alt={artista.nombre}
+                                                                className="artista-card-img"
+                                                            />
+                                                        ) : artista.imagenBD ? (
+                                                            <img
+                                                                src={artista.imagenBD}
                                                                 alt={artista.nombre}
                                                                 className="artista-card-img"
                                                             />

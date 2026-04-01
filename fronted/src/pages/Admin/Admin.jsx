@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getArtistas } from '../../services/api';
 import './Admin.css';
 
 function Admin() {
 
     const navigate = useNavigate();
+    const [artistas, setArtistas] = useState([]);
+
+    // Cargar artistas al montar el componente
+    useEffect(() => {
+        getArtistas().then(data => {
+            setArtistas(data);
+        }).catch(err => {
+            console.error("Error al cargar los artistas:", err);
+        });
+    }, []);
 
     return (
         <div className="admin-wrapper">
@@ -12,7 +23,7 @@ function Admin() {
             {/* MENÚ LATERAL */}
             <aside className="admin-sidebar">
 
-                <div 
+                <div
                     className="admin-logo-container"
                     onClick={() => navigate('/')}
                     style={{ cursor: 'pointer' }}
@@ -29,7 +40,7 @@ function Admin() {
                 </nav>
 
                 <div className="admin-sidebar-footer">
-                    <button 
+                    <button
                         className="admin-logout-btn"
                         onClick={() => navigate('/login')}
                     >
@@ -44,31 +55,24 @@ function Admin() {
 
                 <header className="admin-header">
                     <h2>Gestión de Artistas</h2>
-                    <div className="admin-profile-circle">A</div>
+                    <div className="admin-profile-circle" onClick={() => navigate('/perfil')} style={{cursor:'pointer'}}>A</div>
                 </header>
 
                 <div className="admin-content-box">
                     <h3 className="form-title">
-                        RELLENA LOS CAMPOS CON EL NUEVO ARTISTA
+                        AÑADIR NUEVO ARTISTA
                     </h3>
 
                     <form className="admin-form">
                         <div className="form-grid">
-                            <input type="text" placeholder="Nombre del artista / grupo" />
-                            <input type="text" placeholder="Género musical" />
-
-                            <input type="date" />
-                            <input type="time" />
-
-                            <input type="text" placeholder="Caché (€)" />
-                            <input type="text" placeholder="Escenario asignado" />
-
-                            <input type="text" placeholder="Requisitos técnicos (Rider)" />
-                            <input type="text" placeholder="URL Imagen promocional" />
+                            <input type="text" placeholder="Nombre completo" />
+                            <input type="text" placeholder="Día de actuación" />
+                            <input type="text" placeholder="URL de la imagen (/artists/...)" />
+                            <input type="text" placeholder="URL de Spotify" />
                         </div>
 
                         <div className="form-actions">
-                            <button 
+                            <button
                                 type="button"
                                 className="btn-add-artist"
                             >
@@ -76,6 +80,61 @@ function Admin() {
                             </button>
                         </div>
                     </form>
+                </div>
+
+                {/* LISTADO DE ARTISTAS OBTENIDOS DEL BACKEND */}
+                <div className="admin-content-box">
+                    <h3 className="form-title">
+                        ARTISTAS REGISTRADOS ({artistas.length})
+                    </h3>
+                    
+                    <div className="admin-table-container">
+                        <table className="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Día</th>
+                                    <th>Spotify</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {artistas.length > 0 ? (
+                                    artistas.map(artista => (
+                                        <tr key={artista.id}>
+                                            <td>{artista.id}</td>
+                                            <td>
+                                                <img 
+                                                    src={artista.img || "/logoPI.png"} 
+                                                    alt={artista.nombre} 
+                                                    style={{ width: "40px", height: "40px", borderRadius: "5px", objectFit: "cover" }} 
+                                                />
+                                            </td>
+                                            <td style={{ fontWeight: 'bold' }}>{artista.nombre}</td>
+                                            <td>{artista.dia}</td>
+                                            <td>
+                                                {artista.spoty ? (
+                                                    <a href={artista.spoty} target="_blank" rel="noopener noreferrer" style={{color: '#1db954'}}>Abrir</a>
+                                                ) : '-'}
+                                            </td>
+                                            <td>
+                                                <button className="btn-editar">Editar</button>
+                                                <button className="btn-eliminar">Borrar</button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="6" style={{ textAlign: 'center', padding: '20px', color: '#888' }}>
+                                            No hay artistas cargados.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </main>
